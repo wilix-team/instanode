@@ -1,13 +1,14 @@
 {
   "name": "instanode",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "Instagram api module with posting support",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/mocha test/test.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Aloyan Dmitry",
+  "license": "MIT",
+  "repository": "https://github.com/WilixLead/instanode",
   "devDependencies": {
     "mocha": "^2.5.3",
     "should": "^9.0.0"
