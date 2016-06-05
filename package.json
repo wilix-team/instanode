@@ -1,6 +1,6 @@
 {
   "name": "instanode",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Instagram api module with posting support",
   "main": "index.js",
   "scripts": {

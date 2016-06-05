@@ -6,7 +6,6 @@ const crypto = require('crypto');
 const path = require('path');
 const _ = require('lodash');
 const uuid = require('uuid');
-const FormData = require('form-data');
 const request = require('request');
 const error = require('./error');
 
@@ -51,7 +50,6 @@ this.apiCall = function(endPoint, post, cookies, callback) {
 this.sendFile = function(endPoint, data, userSignature, callback) {
   var params = {
     method: 'POST',
-    //url: 'http://localhost:5757/',
     url: apiUrl + endPoint,
     formData: data,
     headers: {
@@ -59,8 +57,6 @@ this.sendFile = function(endPoint, data, userSignature, callback) {
       'Cookie': this.encodeCookies(userSignature.cookies),
       'Connection': 'close',
       'Accept': '*/*',
-      //'Content-type': 'multipart/form-data; boundary=' + userSignature.uuid,
-      //'Content-Length': data.length,
       'Cookie2': '$Version=1',
       'Accept-Language': 'en-US',
       'Accept-Encoding': 'gzip'
@@ -107,31 +103,15 @@ this.generateSignature = function(data) {
       'signed_body=' + hash + '.' + encodeURIComponent(data);
 };
 
-this.randomInt = function(min,max) {
-  return Math.floor(Math.random()*(max-min+1)+min);
-};
-
 this.getMicroTime = function() {
   return Date.now();
 };
 
-this.buildBody = function (bodies, boundary) {
-  let body = '';
-  _.forEach(bodies, (val) => {
-    body += '--' + boundary + "\r\n";
-    body += 'Content-Disposition: ' + val.type + '; name="' + val.name + '"';
-    if (val.filename) {
-      body += '; filename="' + val.filename + '"';
-    }
-    if (val.headers) {
-      _.forEach(val.headers, (header) => {
-        body += "\r\n" + header
-      });
-    }
-    body += "\r\n\r\n" + val.data + "\r\n";
+this.unicodeJson = function(json) {
+  json  = json.replace(/[\u007F-\uFFFF]/g, function(chr) {
+    return "\\u" + ("0000" + chr.charCodeAt(0).toString(16)).substr(-4)
   });
-  body += '--' + boundary + '--';
-  return body;
+  return json;
 };
 
 module.exports = this;

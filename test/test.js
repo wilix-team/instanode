@@ -8,8 +8,8 @@ const _ = require('lodash');
 
 const InstaNode = require('./../index.js');
 
-const TEST_USERNAME = '';
-const TEST_PASSWORD = '';
+const TEST_USERNAME = process.env.USERNAME || '';
+const TEST_PASSWORD = process.env.PASSWORD || '';
 
 describe('Posting API', () => {
   let userSignature = {};
@@ -28,12 +28,22 @@ describe('Posting API', () => {
   
   it('Should upload photo', (done) => {
     instanode.uploadPhoto(__dirname + '/assets/test.jpg', {
-      caption: 'WHatIamDoing???',
+      caption: 'Русский текст?',
       userSignature: userSignature
     }, (err, result) => {
       result.should.has.property('status');
       result.status.should.equal('ok');
       upload_id = result.upload_id;
+      done();
+    });
+  });
+
+  it('Should return recent activity', (done) => {
+    instanode.getTimelineFeed(userSignature, (err, result) => {
+      result.should.has.property('status');
+      result.status.should.equal('ok');
+      result.should.has.property('items');
+      result.items[0].caption.text.should.equal('Русский текст?');
       done();
     });
   });

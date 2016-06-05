@@ -154,9 +154,7 @@ class InstaNode {
     let fileToUpload;
     if (!options.upload_id) {
       options.upload_id = helper.getMicroTime();
-      fileToUpload = fs.readFileSync(photoPath);
-    } else {
-      //fileToUpload = fs.createReadStream(photoPath);
+      fileToUpload = fs.createReadStream(photoPath);
     }
     
     let data = {
@@ -165,7 +163,7 @@ class InstaNode {
       _csrftoken: options.userSignature.token,
       image_compression: '{"lib_name":"jt","lib_version":"1.3.0","quality":"70"}',
       photo: {
-        value:  fs.createReadStream(photoPath),
+        value:  fileToUpload,
         options: {
           filename: 'pending_media_' + options.upload_id + '.jpg',
           contentType: 'application/octet-stream',
@@ -239,7 +237,7 @@ class InstaNode {
       _uid: options.userSignature.username_id,
       caption: options.caption
     }).replace('"crop_center":[0,0]', '"crop_center":[0.0,-0.0]');
-    
+    data = helper.unicodeJson(data);
     helper.apiCall('/media/configure/', helper.generateSignature(data), options.userSignature.cookies, callback);
   }
   
