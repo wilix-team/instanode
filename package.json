@@ -1,0 +1,22 @@
+{
+  "name": "instanode",
+  "version": "1.0.0",
+  "description": "Instagram api module with posting support",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "should": "^9.0.0"
+  },
+  "dependencies": {
+    "async": "^2.0.0-rc.5",
+    "image-size": "^0.5.0",
+    "lodash": "^4.13.1",
+    "request": "^2.72.0",
+    "uuid": "^2.0.2"
+  }
+}
