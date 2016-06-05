@@ -11,9 +11,15 @@ const experiments = 'ig_android_progressive_jpeg,ig_creation_growth_holdout,ig_a
 
 class InstaNode {
   constructor (username, password) {
+    this.userSignature = {};
+    if (typeof username === 'object') {
+      this.userSignature = username;
+      username = null;
+    }
+    
     this.username = username;
     this.password = password;
-    this.userSignature = {};
+    
     if (username && password) {
       this.uuid = helper.generateUUID(true);
       this.device_id = helper.generateDeviceId(crypto.createHash('md5').update(username + password).digest('hex'));

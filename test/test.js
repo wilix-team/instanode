@@ -8,8 +8,8 @@ const _ = require('lodash');
 
 const InstaNode = require('./../index.js');
 
-const TEST_USERNAME = 'trash7778';
-const TEST_PASSWORD = 'azsxdc';
+const TEST_USERNAME = '';
+const TEST_PASSWORD = '';
 
 describe('Posting API', () => {
   let userSignature = {};
