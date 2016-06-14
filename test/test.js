@@ -47,4 +47,14 @@ describe('Posting API', () => {
       done();
     });
   });
+
+  it('Should return recent user activity', (done) => {
+    instanode.getUserFeed(userSignature, null, (err, result) => {
+      result.should.has.property('status');
+      result.status.should.equal('ok');
+      result.should.has.property('items');
+      result.items[0].caption.text.should.equal('Русский текст?');
+      done();
+    });
+  });
 });

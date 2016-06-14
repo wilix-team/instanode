@@ -297,6 +297,22 @@ class InstaNode {
     helper.apiCall('/feed/timeline/', null, userSignature.cookies, callback);
   }
   
+  getUserFeed(userSignature, forUsernameId, callback) {
+    if (typeof userSignature === 'function') {
+      callback = userSignature;
+      userSignature = null;
+    }
+    userSignature = this._getUserSignature(userSignature);
+    
+    if (!forUsernameId) {
+      forUsernameId = userSignature.username_id;
+    }
+    
+    helper.apiCall('/feed/user/' + forUsernameId + 
+      '?rank_token=' + userSignature.rank_token + 
+      '&ranked_content=true', null, userSignature.cookies, callback);
+  }
+  
   getv2Inbox (userSignature, callback) {
     if (typeof userSignature === 'function') {
       callback = userSignature;
