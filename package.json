@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "async": "^2.0.0-rc.5",
-    "image-size": "^0.5.0",
+    "image-size": "npm:image-size-next@1.2.2",
     "lodash": "^4.13.1",
     "request": "^2.72.0",
     "uuid": "^2.0.2"
